@@ -1,4 +1,5 @@
 # from arepldump import dump
+import json
 
 def readcurrency(filename):
     result = []
@@ -7,12 +8,19 @@ def readcurrency(filename):
             x = line.split()
             d = {"symbol" : x[0], "rate" : x[1]}
             result.append(d)
-        return d
+        return result
 
-def save(filename, data):
+def save(output_file, data):
+    with open(output_file,'w+') as file_object:
+        d = {"data" : data}
+        json.dump(d, file_object, indent=2)
+    return
 
+save("currency.json", readcurrency("currency.txt"))
+        
+        
+        
 
-print(readcurrency("currency.txt"))
 
 
 
